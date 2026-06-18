@@ -28,7 +28,7 @@ const signup = async (req, res) => {
     // Email verification token
     const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1d" });
     const link = `${process.env.BACKEND_URL}/auth/verify/${token}`;
-console.log("Before send mail");
+
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
@@ -40,7 +40,7 @@ console.log("Before send mail");
         <p>This link expires in 24 hours.</p>
       `,
     });
-      console.log("Mail sent successfully");
+
     res.status(201).json({ msg: "Signup successful! Check your email to verify your account." });
   } catch (err) {
     console.error("Signup error:", err.message);
